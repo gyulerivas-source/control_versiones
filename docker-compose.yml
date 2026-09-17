@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # 1. La Cara Pública (Servidor Web)
+  mi_web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    networks:
+      - red_ccna_interna
+
+  # 2. El Cerebro Privado (Base de Datos)
+  mi_bbdd:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password_super_seguro
+    networks:
+      - red_ccna_interna
+
+# 3. Tu Switch Virtual (Aislamiento de Red)
+networks:
+  red_ccna_interna:
+    driver: bridge
